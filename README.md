@@ -41,3 +41,66 @@ flowchart LR
     CU7 -.->|<<extend>>| CU3
 
 ```
+
+Ejercicio 2. Parte 1
+
+```mermaid
+
+sequenceDiagram
+    %% Objetos / Participantes
+    participant Member
+    participant WebInterface
+    participant ReservationManager
+    participant Database
+
+    %% Flujo principal
+    Member->>WebInterface: Press "Confirm Reservation"
+    WebInterface->>ReservationManager: Request reservation
+    ReservationManager->>Database: Check availability
+    Database-->>ReservationManager: Availability result
+
+    %% Fragmento combinado: Clase disponible o llena
+    alt Class available
+        ReservationManager->>Database: Confirm reservation
+        Database-->>ReservationManager: Reservation confirmed
+        ReservationManager-->>WebInterface: Show message "Reservation successful"
+        WebInterface-->>Member: Display confirmation
+    else Class full
+        ReservationManager-->>WebInterface: Show message "Class full, added to waiting list"
+        WebInterface-->>Member: Display waiting list notice
+    end
+```
+
+Ejercicio 2. Parte 2
+
+```mermaid
+sequenceDiagram
+autonumber
+actor Member
+participant WebInterface as Web Interface
+participant ReservationManager as Reservation Manager
+participant Database as Database
+
+¡Member->>WebInterface: Press "Confirm Reservation"
+activate WebInterface
+WebInterface->>ReservationManager: Request reservation
+activate ReservationManager
+ReservationManager->>Database: Check availability
+activate Database
+Database-->>ReservationManager: Availability result
+deactivate Database
+
+alt Class available
+    ReservationManager->>Database: Confirm reservation
+    activate Database
+    Database-->>ReservationManager: Reservation confirmed
+    deactivate Database
+    ReservationManager-->>WebInterface: Show message "Reservation successful"
+    WebInterface-->>Member: Display confirmation
+else Class full
+    ReservationManager-->>WebInterface: Show message "Class full, added to waiting list"
+    WebInterface-->>Member: Display waiting list notice
+end
+deactivate ReservationManager
+deactivate WebInterface
+```
