@@ -3,38 +3,41 @@
 Caso de uso del ejercicio 1
 
 ```mermaid
-LR flowchart
-%% Actores
-member([member])
-Administrator([Administrator])
-Monitor([Monitor])
+%% Diagrama de Casos de Uso - Gimnasio
+%% CU1, CU2... para los casos de uso
 
-%% Sistema
-subgraph System["Class Management System"]
-CU1(("Log in"))
-CU2(("Book class"))
-CU3(("Waiting list"))
-CU4(("Add class"))
-CU5(("Cancel session"))
-CU6(("No attendance"))
-CU7(("Class full"))
-end
+flowchart LR
+    %% Actores
+    Member([Member])
+    Administrator([Administrator])
+    Instructor([Instructor])
 
-%% Relacion de los actores
-Members --> CU2
-Administrator --> CU4
-Monitor --> CU6
-Members --> CU7
-Administrator --> CU5
+    %% Sistema
+    subgraph System["Gym Class Management System"]
+        CU1(("Login"))
+        CU2(("Book Class"))
+        CU3(("Waiting List"))
+        CU4(("Add Class"))
+        CU5(("Cancel Session"))
+        CU6(("Instructor Absent"))
+        CU7(("Class Full"))
+    end
 
-%% Include 
-CU2-.->|<<include>>| CU1
-CU4-.->|<<include>>| CU1
-CU5-.->|<<include>>| CU1
+    %% Relaciones Actores
+    Member --> CU2
+    Administrator --> CU4
+    Instructor --> CU6
+    Member --> CU7
+    Administrator --> CU5
 
-%% Extend
-CU3-.->|<<extends>>| CU2
-CU5-.->|<<extend>>| CU6
-CU7-.->|<<extend>>| CU3
+    %% Include (acciones que requieren login)
+    CU2 -.->|<<include>>| CU1
+    CU4 -.->|<<include>>| CU1
+    CU5 -.->|<<include>>| CU1
+
+    %% Extend (acciones opcionales o condicionales)
+    CU3 -.->|<<extend>>| CU2
+    CU5 -.->|<<extend>>| CU6
+    CU7 -.->|<<extend>>| CU3
 
 ```
