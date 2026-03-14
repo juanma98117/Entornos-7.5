@@ -129,19 +129,18 @@ H --> Z([End])
 
 Ejercicio 4 en inglés
 
-´´´mermaid
+```mermaid
 stateDiagram-v2
+    [*] --> Pending
 
-[*] --> Pending : createReservation()
+    Pending --> Confirmed : confirm()
+    Pending --> Cancelled : cancel()
 
-Pending --> Confirmed : confirm()
-Pending --> Cancelled : cancel()
+    Confirmed --> Cancelled : cancel()
+    Confirmed --> Completed : checkIn()
+    Confirmed --> NoShow : noShow()
 
-Confirmed --> Cancelled : cancel()
-Confirmed --> Completed : checkIn()
-Confirmed --> No_Show : noShow()
-
-Completed --> [*]
-Cancelled --> [*]
-No_Show --> [*]
+    Completed --> [*]
+    Cancelled --> [*]
+    NoShow --> [*]
 ```
