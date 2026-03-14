@@ -104,3 +104,44 @@ end
 deactivate ReservationManager
 deactivate WebInterface
 ```
+Ejercicio 3 en inglés
+```mermaid
+flowchart TD
+
+A([Start]) --> B[Receive reservation request]
+
+B --> C{Is the member fee paid?}
+
+C -- No --> D[Reject reservation]
+D --> Z([End])
+
+C -- Yes --> E{Is there available capacity?}
+
+E -- No --> F[Inform that there are no available spots]
+F --> Z
+
+E -- Yes --> G[Block spot]
+
+G --> H[Send confirmation email]
+
+H --> Z([End])
+```
+
+Ejercicio 4 en inglés
+
+´´´mermaid
+stateDiagram-v2
+
+[*] --> Pending : createReservation()
+
+Pending --> Confirmed : confirm()
+Pending --> Cancelled : cancel()
+
+Confirmed --> Cancelled : cancel()
+Confirmed --> Completed : checkIn()
+Confirmed --> No_Show : noShow()
+
+Completed --> [*]
+Cancelled --> [*]
+No_Show --> [*]
+```
